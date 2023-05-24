@@ -69,23 +69,6 @@ BUILT_IN_THEMES: dict[str, Theme] = {
     ]
 }
 
-import time
-import logging
-logging.basicConfig(filename='gradio.log', level=logging.INFO)
-def timing(func):
-    """Takes in a function, runs the function, printout runtime, and returns output of function.
-        @timing
-        def a_function()
-    """
-    def wrap_func(*args, **kwargs):
-        start = time.time()
-        result = func(*args, **kwargs)
-        end = time.time()
-        runtime = round(end-start, 2)
-        logging.info(f"Runtime {func.__name__} -> {runtime}")
-        return result
-    return wrap_func
-    
 class Block:
     def __init__(
         self,
@@ -167,7 +150,6 @@ class Block:
     def get_expected_parent(self) -> type[BlockContext] | None:
         return None
     
-    @timing
     def set_event_trigger(
         self,
         event_name: str,
